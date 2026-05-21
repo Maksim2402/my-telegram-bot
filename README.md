@@ -6,6 +6,6 @@
 1. Клонуйте репозиторій:
    `git clone https://github.com/Maksim2/my-telegram-bot`
 2. Встановіть залежності:
-   `pip install -r вимоги.txt`
+   `pip install -r requirements.txt`
 3. Запустіть бота:
    `python newfile.py`
