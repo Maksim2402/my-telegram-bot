@@ -34,7 +34,23 @@ class Registration(StatesGroup):
 main_kb = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="🔍 Дивитися анкети")]
 ], resize_keyboard=True)
-
+main_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="🔎 Дивитися анкети"),
+            KeyboardButton(text="🚗 Шукаю поїздку")
+        ],
+        [
+            KeyboardButton(text="🎮 Пошук напарників"),
+            KeyboardButton(text="🥂 Компанія для туси")
+        ],
+        [
+            KeyboardButton(text="🚶 Прогулянки"),
+            KeyboardButton(text="❤️ Шукаю пару")
+        ]
+    ],
+    resize_keyboard=True
+)
 def get_gender_kb():
     return ReplyKeyboardMarkup(keyboard=[
         [KeyboardButton(text="Хлопець")],
@@ -48,7 +64,17 @@ def get_like_dislike_kb(current_profile_id):
             InlineKeyboardButton(text="👍 Лайк", callback_data=f"like_{current_profile_id}")
         ]
     ])
+@dp.message(lambda message: message.text == "Компанія для туси")
+async def find_party(message: types.Message):
+    await message.answer("Ви обрали: Компанія для туси. Розкажіть, який формат зустрічі ви шукаєте?")
 
+@dp.message(lambda message: message.text == "Прогулянки")
+async def find_walk(message: types.Message):
+    await message.answer("Ви обрали: Прогулянки. Куди плануєте йти?")
+
+@dp.message(lambda message: message.text == "Шукаю пару")
+async def find_partner(message: types.Message):
+    await message.answer("Ви обрали: Шукаю пару. Напишіть коротко про себе.")
 @dp.message(Command("start"))
 async def start_cmd(message: types.Message, state: FSMContext):
     cursor.execute("SELECT * FROM users WHERE tg_id = ?", (message.from_user.id,))
