@@ -67,7 +67,9 @@ def get_like_dislike_kb(current_profile_id):
 @dp.message(lambda message: message.text == "Компанія для туси")
 async def find_party(message: types.Message):
     await message.answer("Ви обрали: Компанія для туси. Розкажіть, який формат зустрічі ви шукаєте?")
-
+@dp.message(lambda message: message.text == "Компанія для туси")
+async def find_party(message: types.Message):
+    await message.answer("Ви обрали: Компанія для туси. Розкажіть, який формат зустрічі ви шукаєте?")
 @dp.message(lambda message: message.text == "Прогулянки")
 async def find_walk(message: types.Message):
     await message.answer("Ви обрали: Прогулянки. Куди плануєте йти?")
