@@ -5,7 +5,23 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from aiohttp import web
 
+async def handle(request):
+    return web.Response(text="Bot is running!")
+
+app = web.Application()
+app.router.add_get('/', handle)
+
+# Замініть ваш рядок запуску (dp.start_polling) на цей блок:
+if __name__ == "__main__":
+    import asyncio
+    runner = web.AppRunner(app)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(runner.setup())
+    site = web.TCPSite(runner, '0.0.0.0', 10000)
+    loop.run_until_complete(site.start())
+    loop.run_until_complete(dp.start_polling(bot))
 # --- НАЛАШТУВАННЯ ТОКЕНА ---
 API_TOKEN = "8849714599:AAE2rn3RM5HLof9LAoSsimwosoifW7NbXx4"
 bot = Bot(token=API_TOKEN)
